@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Férias MESM 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#14233c; --petroleo:#1f5f63; --petroleo-claro:#e6f0f0;
+    --texto:#1d2433; --suave:#5f6b7d; --linha:#e3e7ee; --fundo:#f5f6f9; --card:#ffffff;
+    --verde:#2e7d4f; --verde-bg:#e5f3ea; --ambar:#a2670f; --ambar-bg:#fbf0dc;
+    --vermelho:#b0392f; --vermelho-bg:#f9e4e1; --dourado:#b8913a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--fundo);color:var(--texto);font:14px/1.45 Inter,system-ui,sans-serif}
+  .pagina{max-width:1020px;margin:0 auto;padding:32px 16px 60px}
+  header.topo{background:linear-gradient(135deg,var(--navy),var(--petroleo));color:#fff;border-radius:18px;padding:28px 30px;position:relative;overflow:hidden}
+  header.topo::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06)}
+  .sobre{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.75;font-weight:600}
+  h1{font-family:Fraunces,Georgia,serif;font-size:34px;margin:6px 0 4px;font-weight:600}
+  .sub{opacity:.85;font-size:14px}
+  .resumo{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .pilula{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 14px;font-size:13px}
+  .pilula b{font-weight:700}
+  .barra{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:20px 0 14px}
+  .barra input{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--linha);border-radius:10px;font:inherit;background:#fff}
+  button{font:inherit;font-weight:600;border:1px solid var(--linha);background:#fff;color:var(--navy);padding:9px 14px;border-radius:10px;cursor:pointer}
+  button:hover{border-color:var(--petroleo);color:var(--petroleo)}
+  button.primario{background:var(--petroleo);color:#fff;border-color:var(--petroleo)}
+  button.primario:hover{background:var(--navy);color:#fff}
+  .dica{font-size:12.5px;color:var(--suave);margin:0 0 16px}
+  .mes{background:var(--card);border:1px solid var(--linha);border-radius:14px;margin-bottom:14px;overflow:hidden;break-inside:avoid}
+  .mes-cab{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--petroleo-claro);border-bottom:1px solid var(--linha)}
+  .mes-cab h2{margin:0;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy)}
+  .mes-cab .qtd{font-size:12px;color:var(--suave);font-weight:600}
+  .mes-cab button{padding:5px 10px;font-size:12px}
+  table{width:100%;border-collapse:collapse;table-layout:fixed}
+  th:nth-child(1){width:24%} th:nth-child(2){width:17%} th:nth-child(3){width:9%} th:nth-child(4){width:20%} th:nth-child(6){width:40px}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--suave);text-align:left;padding:8px 18px;font-weight:600;border-bottom:1px solid var(--linha)}
+  td{padding:8px 18px;border-bottom:1px solid var(--linha);vertical-align:middle}
+  tr:last-child td{border-bottom:0}
+  td[contenteditable]{outline:none;border-radius:6px}
+  td[contenteditable]:focus{background:#fffbea;box-shadow:inset 0 0 0 1px var(--dourado)}
+  td.nome{font-weight:600}
+  td.periodo{font-variant-numeric:tabular-nums}
+  td.parcela{text-align:center}
+  td.obs{color:var(--suave);font-size:13px}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.04em;border-radius:6px;padding:2px 7px;text-transform:uppercase;cursor:pointer;user-select:none;white-space:nowrap}
+  .st-conferido{background:var(--verde-bg);color:var(--verde)}
+  .st-pendente{background:var(--ambar-bg);color:var(--ambar)}
+  .st-cancelado{background:var(--vermelho-bg);color:var(--vermelho)}
+  .manuscrito{font-size:10px;color:var(--dourado);font-weight:700;margin-left:6px;letter-spacing:.04em}
+  tr.cancelado td.nome, tr.cancelado td.periodo{text-decoration:line-through;color:var(--suave)}
+  .x{border:0;background:none;color:#b7bfcc;font-size:16px;padding:0 4px;cursor:pointer}
+  .x:hover{color:var(--vermelho)}
+  .vazio td{color:var(--suave);font-style:italic}
+  .legenda{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--suave);margin-top:18px}
+  footer{margin-top:22px;font-size:12px;color:var(--suave)}
+  @media (max-width:640px){
+    td,th{padding:7px 10px} td.obs,th.obs{display:none} h1{font-size:27px}
+  }
+  @media print{
+    @page{size:A4;margin:12mm 11mm}
+    body{background:#fff;font-size:11px}
+    .pagina{padding:0;max-width:none}
+    .barra,.dica,.mes-cab button,.x,.col-acao{display:none!important}
+    header.topo{-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:16px 20px;border-radius:12px}
+    h1{font-size:24px} .resumo{margin-top:10px}
+    #meses{margin-top:10px}
+    .mes{margin-bottom:8px;border-radius:10px}
+    .mes-cab{padding:6px 14px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .mes-cab h2{font-size:12px}
+    th{padding:4px 14px;font-size:9px} td{padding:4px 14px}
+    .tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    td.obs{font-size:10px}
+  }
+</style>
+</head>
+<body>
+<div class="pagina">
+  <header class="topo">
+    <div class="sobre">Escala anual</div>
+    <h1>Férias MESM 2027</h1>
+    <div class="sub">Distribuição por mês, período e parcela (1ª ou 2ª quinzena de férias)</div>
+    <div class="resumo" id="resumo"></div>
+  </header>
+
+  <div class="barra">
+    <input id="busca" type="search" placeholder="Buscar pelo nome (ex.: Junko)">
+    <button id="btnPdf" class="primario">Imprimir / salvar PDF</button>
+    <button id="btnBaixar">Baixar cópia com as alterações</button>
+    <button id="btnRestaurar">Restaurar original</button>
+  </div>
+  <p class="dica">Clique em qualquer nome, período, parcela ou observação para editar. Clique na etiqueta de situação para alternar entre Conferido, Pendente e Cancelado. As alterações ficam salvas neste navegador.</p>
+
+  <div id="meses"></div>
+
+  <div class="legenda">
+    <span><span class="tag st-conferido">Conferido</span> marcado com visto na folha</span>
+    <span><span class="tag st-pendente">Pendente</span> sem visto ou só com traço</span>
+    <span><span class="tag st-cancelado">Cancelado</span> riscado na folha</span>
+    <span><span class="manuscrito">MANUSCRITO</span> escrito à mão na folha</span>
+  </div>
+  <footer>Transcrito da folha impressa "Férias MESM 2027" com as anotações à mão. Gerado em 13/11/2026.</footer>
+</div>
+
+<script id="dados" type="application/json">
+[
+{"mes":"Janeiro","nome":"Andréa","periodo":"16 a 30","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Janeiro","nome":"Fátima","periodo":"17 a 31","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Janeiro","nome":"Flávia M","periodo":"1 a 15","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Janeiro","nome":"Jenice","periodo":"4 a 18","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Janeiro","nome":"Marlene","periodo":"1 a 15","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Janeiro","nome":"Rutiane","periodo":"16 a 30","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Janeiro","nome":"Jaelma","periodo":"1 a 30","parcela":"","status":"conferido","manuscrito":true,"obs":"Nome lido da letra à mão; confirmar grafia"},
+{"mes":"Fevereiro","nome":"Goretti","periodo":"1 a 15","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Fevereiro","nome":"Renata G","periodo":"1 a 15","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Fevereiro","nome":"Vanessa","periodo":"01/02 a 02/03","parcela":"","status":"conferido","manuscrito":false,"obs":"Na folha: \"01 a 02/03\""},
+{"mes":"Fevereiro","nome":"Daniela M","periodo":"01 a 15/02","parcela":"1","status":"conferido","manuscrito":true,"obs":"Na folha está \"Daniella\"; em dezembro, \"Daniela\""},
+{"mes":"Fevereiro","nome":"Junko","periodo":"01 a 15","parcela":"1","status":"pendente","manuscrito":true,"obs":"Sem visto; Junko também aparece em setembro como parcela 1"},
+{"mes":"Março","nome":"Flávio","periodo":"1 a 15","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Abril","nome":"Alexsandra","periodo":"01 a 30","parcela":"","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Abril","nome":"Patrícia","periodo":"1 a 15","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Abril","nome":"Sineidy","periodo":"1 a 30","parcela":"","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Maio","nome":"Clara","periodo":"17 a 31","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Maio","nome":"Renata G","periodo":"1 a 15","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Maio","nome":"Rutiane","periodo":"17 a 31","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Maio","nome":"Juliana","periodo":"1 a 15","parcela":"1","status":"conferido","manuscrito":true,"obs":""},
+{"mes":"Maio","nome":"Lúcia","periodo":"16 a 30","parcela":"1","status":"conferido","manuscrito":true,"obs":"Substitui a parcela 1 de agosto, que está riscada"},
+{"mes":"Junho","nome":"Jenice","periodo":"16 a 30","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Julho","nome":"Clésia","periodo":"1 a 15","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Julho","nome":"Flávia M","periodo":"1 a 15","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Julho","nome":"Kielson","periodo":"16 a 30","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Julho","nome":"Marlene","periodo":"16 a 30","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Julho","nome":"Wiviane","periodo":"1 a 15","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Julho","nome":"Verônica","periodo":"1 a 30","parcela":"","status":"conferido","manuscrito":true,"obs":""},
+{"mes":"Julho","nome":"Alinne","periodo":"01 a 15","parcela":"1","status":"conferido","manuscrito":true,"obs":""},
+{"mes":"Agosto","nome":"Flávia P.","periodo":"17 a 31","parcela":"1","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Agosto","nome":"Flávio","periodo":"16 a 30","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Agosto","nome":"Lúcia","periodo":"1 a 15","parcela":"1","status":"cancelado","manuscrito":false,"obs":"Riscada na folha; passou para 16 a 30 de maio"},
+{"mes":"Setembro","nome":"Fátima","periodo":"15 a 30","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Setembro","nome":"Roberta","periodo":"1 a 30","parcela":"","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Setembro","nome":"Junko","periodo":"16 a 30","parcela":"1","status":"conferido","manuscrito":true,"obs":""},
+{"mes":"Setembro","nome":"Alinne","periodo":"1 a 15","parcela":"2","status":"conferido","manuscrito":true,"obs":"Abaixo está escrito \"2 a 16\"; confirmar qual período vale"},
+{"mes":"Outubro","nome":"Ana Claudia","periodo":"02 a 31","parcela":"","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Outubro","nome":"Andréa","periodo":"1 a 15","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Outubro","nome":"Wiviane","periodo":"16 a 30","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Outubro","nome":"Junko","periodo":"1 a 15","parcela":"2","status":"conferido","manuscrito":true,"obs":""},
+{"mes":"Outubro","nome":"Juliana","periodo":"16 a 3?","parcela":"","status":"pendente","manuscrito":true,"obs":"Anotado na margem; final cortado na foto (30 ou 31)"},
+{"mes":"Novembro","nome":"Flávia P.","periodo":"16 a 30","parcela":"2","status":"pendente","manuscrito":false,"obs":""},
+{"mes":"Novembro","nome":"Kielson","periodo":"16 a 30","parcela":"2","status":"pendente","manuscrito":false,"obs":"Marcado com traço, sem visto"},
+{"mes":"Novembro","nome":"Renata P","periodo":"1 a 30","parcela":"","status":"pendente","manuscrito":false,"obs":"Marcado com traço, sem visto"},
+{"mes":"Novembro","nome":"Tatiana","periodo":"1 a 30","parcela":"","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Dezembro","nome":"Clara","periodo":"17 a 31","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Dezembro","nome":"Clésia","periodo":"1 a 15","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Dezembro","nome":"Goretti","periodo":"17 a 31","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Dezembro","nome":"Isabel","periodo":"1 a 30","parcela":"","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Dezembro","nome":"Lúcia","periodo":"16 a 30","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Dezembro","nome":"Magali","periodo":"01 a 30","parcela":"","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Dezembro","nome":"Patrícia","periodo":"17 a 31","parcela":"2","status":"conferido","manuscrito":false,"obs":""},
+{"mes":"Dezembro","nome":"Daniela M","periodo":"17 a 31","parcela":"2","status":"conferido","manuscrito":true,"obs":""}
+]
+</script>
+
+<script>
+(function(){
+  var MESES=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+  var CHAVE="ferias-mesm-2027-v1";
+  var ORIGINAL=JSON.parse(document.getElementById("dados").textContent);
+  var dados=carregar();
+  var ROTULO={conferido:"Conferido",pendente:"Pendente",cancelado:"Cancelado"};
+  var CICLO={conferido:"pendente",pendente:"cancelado",cancelado:"conferido"};
+
+  function carregar(){
+    try{var s=localStorage.getItem(CHAVE); if(s) return JSON.parse(s);}catch(e){}
+    return JSON.parse(JSON.stringify(ORIGINAL));
+  }
+  function salvar(){ try{localStorage.setItem(CHAVE,JSON.stringify(dados));}catch(e){} }
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+
+  function render(){
+    var filtro=(document.getElementById("busca").value||"").trim().toLowerCase();
+    var html="";
+    MESES.forEach(function(mes){
+      var itens=[];
+      dados.forEach(function(d,i){ if(d.mes===mes && (!filtro || d.nome.toLowerCase().indexOf(filtro)>=0)) itens.push(i); });
+      if(filtro && !itens.length) return;
+      var ativos=itens.filter(function(i){return dados[i].status!=="cancelado";}).length;
+      html+='<section class="mes"><div class="mes-cab"><h2>'+mes+'</h2><div style="display:flex;gap:10px;align-items:center"><span class="qtd">'+ativos+(ativos===1?" pessoa":" pessoas")+'</span><button data-add="'+mes+'">+ Adicionar</button></div></div>';
+      html+='<table><thead><tr><th>Nome</th><th>Período</th><th style="text-align:center">Parcela</th><th>Situação</th><th class="obs">Observação</th><th class="col-acao"></th></tr></thead><tbody>';
+      if(!itens.length) html+='<tr class="vazio"><td colspan="6">Ninguém neste mês</td></tr>';
+      itens.forEach(function(i){
+        var d=dados[i];
+        html+='<tr class="'+d.status+'" data-i="'+i+'">'+
+          '<td class="nome" contenteditable="true" data-campo="nome">'+esc(d.nome)+'</td>'+
+          '<td class="periodo" contenteditable="true" data-campo="periodo">'+esc(d.periodo)+'</td>'+
+          '<td class="parcela" contenteditable="true" data-campo="parcela">'+esc(d.parcela?d.parcela+"ª":"")+'</td>'+
+          '<td><span class="tag st-'+d.status+'" data-status>'+ROTULO[d.status]+'</span>'+(d.manuscrito?'<span class="manuscrito">MANUSCRITO</span>':'')+'</td>'+
+          '<td class="obs" contenteditable="true" data-campo="obs">'+esc(d.obs)+'</td>'+
+          '<td class="col-acao"><button class="x" title="Remover linha" data-del>&times;</button></td></tr>';
+      });
+      html+='</tbody></table></section>';
+    });
+    document.getElementById("meses").innerHTML=html||'<p class="dica">Nenhum nome encontrado.</p>';
+    resumo();
+  }
+
+  function resumo(){
+    var ativos=dados.filter(function(d){return d.status!=="cancelado";});
+    var pessoas={}; ativos.forEach(function(d){pessoas[d.nome.trim().toLowerCase()]=1;});
+    var pend=dados.filter(function(d){return d.status==="pendente";}).length;
+    var canc=dados.filter(function(d){return d.status==="cancelado";}).length;
+    document.getElementById("resumo").innerHTML=
+      '<span class="pilula"><b>'+Object.keys(pessoas).length+'</b> pessoas</span>'+
+      '<span class="pilula"><b>'+ativos.length+'</b> períodos marcados</span>'+
+      '<span class="pilula"><b>'+pend+'</b> pendentes</span>'+
+      '<span class="pilula"><b>'+canc+'</b> cancelado'+(canc===1?'':'s')+'</span>';
+  }
+
+  var cont=document.getElementById("meses");
+  cont.addEventListener("input",function(e){
+    var td=e.target.closest("[data-campo]"); if(!td) return;
+    var i=+td.parentNode.dataset.i, campo=td.dataset.campo, v=td.textContent.trim();
+    if(campo==="parcela") v=v.replace(/[ªa°º\s]/gi,"");
+    dados[i][campo]=v; salvar(); resumo();
+  });
+  cont.addEventListener("focusout",function(e){ if(e.target.closest("[data-campo]")) render(); });
+  cont.addEventListener("click",function(e){
+    var t=e.target;
+    if(t.hasAttribute("data-status")){ var i=+t.closest("tr").dataset.i; dados[i].status=CICLO[dados[i].status]; salvar(); render(); }
+    else if(t.hasAttribute("data-del")){ var j=+t.closest("tr").dataset.i; dados.splice(j,1); salvar(); render(); }
+    else if(t.dataset.add){
+      dados.push({mes:t.dataset.add,nome:"Novo nome",periodo:"1 a 15",parcela:"",status:"pendente",manuscrito:false,obs:""});
+      salvar(); render();
+      var linhas=cont.querySelectorAll('tr[data-i="'+(dados.length-1)+'"] td.nome');
+      if(linhas[0]){ linhas[0].focus(); document.execCommand("selectAll",false,null); }
+    }
+  });
+  document.getElementById("busca").addEventListener("input",render);
+  document.getElementById("btnPdf").addEventListener("click",function(){ window.print(); });
+  document.getElementById("btnRestaurar").addEventListener("click",function(){
+    if(!window.confirm("Descartar todas as alterações e voltar à transcrição original?")) return;
+    dados=JSON.parse(JSON.stringify(ORIGINAL)); try{localStorage.removeItem(CHAVE);}catch(e){} render();
+  });
+  document.getElementById("btnBaixar").addEventListener("click",function(){
+    var clone=document.documentElement.cloneNode(true);
+    clone.querySelector("#dados").textContent="\n"+JSON.stringify(dados,null,0).replace(/\},\{/g,"},\n{")+"\n";
+    clone.querySelector("#meses").innerHTML=""; clone.querySelector("#resumo").innerHTML="";
+    var blob=new Blob(["<!doctype html>\n"+clone.outerHTML],{type:"text/html"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="Ferias-MESM-2027-editado.html"; a.click();
+  });
+  render();
+})();
+</script>
+</body>
+</html>
